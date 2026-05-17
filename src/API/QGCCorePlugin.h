@@ -143,7 +143,7 @@ public:
 
     /// Returns the user visible url to show user where to download new stable builds from.
     /// Custom builds must override to provide their own location.
-    virtual QString stableDownloadLocation() const { return QStringLiteral("qgroundcontrol.com"); }
+    virtual QString stableDownloadLocation() const { return QStringLiteral("visvakarn.com/gcs"); }
 
     /// Returns the complex mission items to display in the Plan UI.
     /// Each entry in the list is a QVariantMap with keys:
