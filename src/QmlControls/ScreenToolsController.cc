@@ -70,7 +70,7 @@ QString ScreenToolsController::normalFontFamily()
         return QStringLiteral("NanumGothic");
     }
 
-    return QStringLiteral("Open Sans");
+    return QStringLiteral("Bai Jamjuree");
 }
 
 double ScreenToolsController::defaultFontDescent(int pointSize)

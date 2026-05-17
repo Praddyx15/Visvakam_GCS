@@ -274,6 +274,14 @@ void QGCApplication::init()
         qCWarning(QGCApplicationLog) << "Could not load /fonts/opensans-demibold font";
     }
 
+    if (QFontDatabase::addApplicationFont(":/fonts/baijamjuree") < 0) {
+        qCWarning(QGCApplicationLog) << "Could not load /fonts/baijamjuree font";
+    }
+
+    if (QFontDatabase::addApplicationFont(":/fonts/baijamjuree-demibold") < 0) {
+        qCWarning(QGCApplicationLog) << "Could not load /fonts/baijamjuree-demibold font";
+    }
+
     if (_simpleBootTest) {
         // Since GStream builds are so problematic we initialize video during the simple boot test
         // to make sure it works and verfies plugin availability.

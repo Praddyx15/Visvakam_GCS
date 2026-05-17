@@ -35,8 +35,8 @@ void QGCPalette::_buildMap()
 {
     //                                      Light                 Dark (Visvakarn)
     //                                      Disabled   Enabled    Disabled   Enabled
-    DECLARE_QGC_COLOR(window,               "#ffffff", "#ffffff", "#2B2B2B", "#2B2B2B")
-    DECLARE_QGC_COLOR(windowTransparent,    "#ccffffff", "#ccffffff", "#cc2B2B2B", "#cc2B2B2B")
+    DECLARE_QGC_COLOR(window,               "#ffffff", "#ffffff", "#2D2B2D", "#2D2B2D")
+    DECLARE_QGC_COLOR(windowTransparent,    "#ccffffff", "#ccffffff", "#cc2D2B2D", "#cc2D2B2D")
     DECLARE_QGC_COLOR(windowShadeLight,     "#909090", "#828282", "#3d3d3d", "#393939")
     DECLARE_QGC_COLOR(windowShade,          "#d9d9d9", "#d9d9d9", "#363636", "#363636")
     DECLARE_QGC_COLOR(windowShadeDark,      "#bdbdbd", "#bdbdbd", "#232323", "#232323")
@@ -70,13 +70,13 @@ void QGCPalette::_buildMap()
     DECLARE_QGC_COLOR(statusFailedText,     "#9d9d9d", "#000000", "#707070", "#E9E9E9")
     DECLARE_QGC_COLOR(statusPassedText,     "#9d9d9d", "#000000", "#707070", "#E9E9E9")
     DECLARE_QGC_COLOR(statusPendingText,    "#9d9d9d", "#000000", "#707070", "#E9E9E9")
-    DECLARE_QGC_COLOR(toolbarBackground,    "#00ffffff", "#00ffffff", "#002B2B2B", "#002B2B2B")
+    DECLARE_QGC_COLOR(toolbarBackground,    "#00ffffff", "#00ffffff", "#002D2B2D", "#002D2B2D")
     DECLARE_QGC_COLOR(groupBorder,          "#bbbbbb", "#73BAF2", "#4a4a4a", "#73BAF2")
     DECLARE_QGC_COLOR(modifiedParamValue,   "#bf7539", "#bf7539", "#de8500", "#de8500")
 
     // Colors not affecting by theming
     //                                                      Disabled     Enabled
-    DECLARE_QGC_NONTHEMED_COLOR(brandingPurple,             "#2B2B2B", "#2B2B2B")
+    DECLARE_QGC_NONTHEMED_COLOR(brandingPurple,             "#2D2B2D", "#2D2B2D")
     DECLARE_QGC_NONTHEMED_COLOR(brandingBlue,               "#73BAF2", "#73BAF2")
     DECLARE_QGC_NONTHEMED_COLOR(toolStripFGColor,           "#707070", "#ffffff")
     DECLARE_QGC_NONTHEMED_COLOR(photoCaptureButtonColor,    "#707070", "#ffffff")
