@@ -90,7 +90,7 @@ void NTRIPHttpTransport::_sendHttpRequest()
         req += "GET /" + _mountpoint.toUtf8() + " HTTP/1.0\r\n";
         req += "Host: " + _hostAddress.toUtf8() + "\r\n";
         req += "Ntrip-Version: Ntrip/2.0\r\n";
-        req += "User-Agent: NTRIP QGroundControl/1.0\r\n";
+        req += "User-Agent: NTRIP VisvakarnGCS/1.0\r\n";
 
         if (!_username.isEmpty() || !_password.isEmpty()) {
             const QByteArray authB64 = (_username + ":" + _password).toUtf8().toBase64();

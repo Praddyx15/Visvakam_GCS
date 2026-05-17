@@ -229,7 +229,7 @@ private:
     static constexpr const char *kMAVLinkLogGroup = "MAVLinkLogGroup";
     static constexpr const char *kEmailAddressKey = "Email";
     static constexpr const char *kDescriptionsKey = "Description";
-    static constexpr const char *kDefaultDescr = "QGroundControl Session";
+    static constexpr const char *kDefaultDescr = "Visvakarn GCS Session";
     static constexpr const char *kPx4URLKey = "LogURL";
     static constexpr const char *kDefaultPx4URL = "https://logs.px4.io/upload";
     static constexpr const char *kEnableAutoUploadKey = "EnableAutoUpload";

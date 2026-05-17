@@ -46,7 +46,7 @@ public:
 
     int version() const override { return 0; }
     QString modelName() const override { return QStringLiteral("Simulated Camera"); }
-    QString vendor() const override { return QStringLiteral("QGroundControl"); }
+    QString vendor() const override { return QStringLiteral("Visvakarn GCS"); }
     QString firmwareVersion() const override { return QStringLiteral("1.0"); }
     qreal focalLength() const override { return qQNaN(); }
     QSizeF sensorSize() const override { return QSizeF(qQNaN(), qQNaN()); }

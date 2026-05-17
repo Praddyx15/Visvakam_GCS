@@ -23,31 +23,24 @@ Rectangle {
             id:         grid
             columns:    2
 
-            QGCLabel { text: qsTr("QGroundControl User Guide") }
+            QGCLabel { text: qsTr("Visvakarn GCS Website") }
             QGCLabel {
                 linkColor:          qgcPal.text
-                text:               "<a href=\"https://docs.qgroundcontrol.com\">https://docs.qgroundcontrol.com</a>"
+                text:               "<a href=\"https://visvakarn.com/gcs\">https://visvakarn.com/gcs</a>"
                 onLinkActivated:    (link) => Qt.openUrlExternally(link)
             }
 
             QGCLabel { text: qsTr("PX4 Users Discussion Forum") }
             QGCLabel {
                 linkColor:          qgcPal.text
-                text:               "<a href=\"http://discuss.px4.io/c/qgroundcontrol\">http://discuss.px4.io/c/qgroundcontrol</a>"
+                text:               "<a href=\"http://discuss.px4.io\">http://discuss.px4.io</a>"
                 onLinkActivated:    (link) => Qt.openUrlExternally(link)
             }
 
             QGCLabel { text: qsTr("ArduPilot Users Discussion Forum") }
             QGCLabel {
                 linkColor:          qgcPal.text
-                text:               "<a href=\"https://discuss.ardupilot.org/c/ground-control-software/qgroundcontrol\">https://discuss.ardupilot.org/c/ground-control-software/qgroundcontrol</a>"
-                onLinkActivated:    (link) => Qt.openUrlExternally(link)
-            }
-
-            QGCLabel { text: qsTr("QGroundControl Discord Channel") }
-            QGCLabel {
-                linkColor:          qgcPal.text
-                text:               "<a href=\"https://discord.com/channels/1022170275984457759/1022185820683255908\">https://discord.com/channels/1022170275984457759/1022185820683255908</a>"
+                text:               "<a href=\"https://discuss.ardupilot.org\">https://discuss.ardupilot.org</a>"
                 onLinkActivated:    (link) => Qt.openUrlExternally(link)
             }
         }

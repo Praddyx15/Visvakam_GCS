@@ -12,13 +12,13 @@ include(BuildConfig)
 # Application Metadata
 # ============================================================================
 
-set(QGC_APP_NAME "QGroundControl" CACHE STRING "Application name")
+set(QGC_APP_NAME "Visvakarn GCS" CACHE STRING "Application name")
 string(TIMESTAMP _copyright_year "%Y")
-set(QGC_APP_COPYRIGHT "Copyright (c) ${_copyright_year} QGroundControl. All rights reserved." CACHE STRING "Copyright notice")
-set(QGC_APP_DESCRIPTION "Open Source Ground Control App" CACHE STRING "Application description")
-set(QGC_ORG_NAME "QGroundControl" CACHE STRING "Organization name")
-set(QGC_ORG_DOMAIN "qgroundcontrol.com" CACHE STRING "Organization domain")
-set(QGC_PACKAGE_NAME "org.mavlink.qgroundcontrol" CACHE STRING "Package identifier")
+set(QGC_APP_COPYRIGHT "Copyright (c) ${_copyright_year} Visvakarn. All rights reserved." CACHE STRING "Copyright notice")
+set(QGC_APP_DESCRIPTION "Visvakarn Ground Control Station" CACHE STRING "Application description")
+set(QGC_ORG_NAME "Visvakarn" CACHE STRING "Organization name")
+set(QGC_ORG_DOMAIN "visvakarn.com" CACHE STRING "Organization domain")
+set(QGC_PACKAGE_NAME "com.visvakarn.gcs" CACHE STRING "Package identifier")
 
 # Settings version - increment to clear stored settings on next boot after incompatible changes
 set(QGC_SETTINGS_VERSION "9" CACHE STRING "Settings schema version")
@@ -132,7 +132,7 @@ option(QT_USE_TARGET_ANDROID_BUILD_DIR "Use target-specific Android build direct
 # ----------------------------------------------------------------------------
 set(QGC_MACOS_PLIST_PATH "${CMAKE_SOURCE_DIR}/deploy/macos/MacOSXBundleInfo.plist.in" CACHE FILEPATH "macOS Info.plist template path")
 set(QGC_MACOS_BUNDLE_ID "${QGC_PACKAGE_NAME}" CACHE STRING "macOS bundle identifier")
-set(QGC_MACOS_ICON_PATH "${CMAKE_SOURCE_DIR}/deploy/macos/qgroundcontrol.icns" CACHE FILEPATH "macOS application icon path")
+set(QGC_MACOS_ICON_PATH "${CMAKE_SOURCE_DIR}/resources/icons/visvakarn.icns" CACHE FILEPATH "macOS application icon path")
 set(QGC_MACOS_ENTITLEMENTS_PATH "${CMAKE_SOURCE_DIR}/deploy/macos/qgroundcontrol.entitlements" CACHE FILEPATH "macOS entitlements file path")
 option(QGC_MACOS_UNIVERSAL_BUILD "Build macOS universal binary (x86_64h + arm64)" ON)
 

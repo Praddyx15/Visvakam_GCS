@@ -186,7 +186,7 @@ namespace {
 constexpr const char *_translateKeysKey = "translateKeys";
 constexpr const char *_arrayIDKeysKey = "_arrayIDKeys";
 constexpr const char *_jsonGroundStationKey = "groundStation";
-constexpr const char *_jsonGroundStationValue = "QGroundControl";
+constexpr const char *_jsonGroundStationValue = "Visvakarn GCS";
 
 Q_APPLICATION_STATIC(QTranslator, s_jsonTranslator);
 

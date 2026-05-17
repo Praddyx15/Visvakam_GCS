@@ -667,7 +667,7 @@ bool MAVLinkLogManager::_sendLog(const QString &logFile)
     QHttpMultiPart *const multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     const QHttpPart emailPart = _createFormPart(u"email", _emailAddress);
     const QHttpPart descriptionPart = _createFormPart(u"description", _description);
-    const QHttpPart sourcePart = _createFormPart(u"source", u"QGroundControl");
+    const QHttpPart sourcePart = _createFormPart(u"source", u"Visvakarn GCS");
     const QHttpPart versionPart = _createFormPart(u"version", QCoreApplication::applicationVersion());
     const QHttpPart typePart = _createFormPart(u"type", u"flightreport");
     const QHttpPart windPart = _createFormPart(u"windSpeed", QString::number(_windSpeed));
