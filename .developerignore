@@ -1,4 +1,4 @@
-# Token efficiency — tracked paths Claude doesn't need to read.
+# Indexing efficiency — tracked paths the developer environment doesn't need to index.
 # Build artifacts are already covered by .gitignore (respected by ripgrep).
 
 # Localization

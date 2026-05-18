@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Instructions for AI coding agents (Codex, Claude Code, etc.) working on QGroundControl.
+Instructions for AI coding agents (Codex, generic engines, etc.) working on QGroundControl.
 
 ## Quick References
 
