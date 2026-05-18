@@ -8,11 +8,13 @@ ToolStrip {
     id: _root
 
     signal displayPreFlightChecklist
+    signal displayGeofenceQuickSet
 
     FlyViewToolStripActionList {
         id: flyViewToolStripActionList
 
         onDisplayPreFlightChecklist: _root.displayPreFlightChecklist()
+        onDisplayGeofenceQuickSet:   _root.displayGeofenceQuickSet()
     }
 
     model: flyViewToolStripActionList.model

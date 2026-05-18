@@ -10,6 +10,7 @@ import QGroundControl.Controls
 import QGroundControl.FlyView
 import QGroundControl.FlightMap
 import QGroundControl.PlanView
+import QGroundControl.Geofence
 
 FlightMap {
     id:                         _root
@@ -326,6 +327,17 @@ FlightMap {
         interactive:            false
         planView:               false
         homePosition:           _activeVehicle && _activeVehicle.homePosition.isValid ? _activeVehicle.homePosition :  QtPositioning.coordinate()
+    }
+
+    // Quick-set geofence ring — immediate visual feedback while/after upload
+    MapCircle {
+        center:         QtPositioning.coordinate(GeofenceQuickSetController.centerLat, GeofenceQuickSetController.centerLon)
+        radius:         GeofenceQuickSetController.radiusM
+        color:          Qt.rgba(0.45, 0.73, 0.95, 0.15)
+        border.color:   "#73BAF2"
+        border.width:   2
+        visible:        GeofenceQuickSetController.geofenceActive
+        z:              QGroundControl.zOrderMapItems
     }
 
     // Rally points on map

@@ -13,6 +13,7 @@ import QGroundControl.Controls
 import QGroundControl.FlyView
 import QGroundControl.FlightMap
 import QGroundControl.Viewer3D
+import QGroundControl.Geofence
 
 // This is the ui overlay layer for the widgets/tools for Fly View
 Item {
@@ -146,12 +147,7 @@ Item {
         maxHeight:              parent.height - y - parentToolInsets.bottomEdgeLeftInset - _toolsMargin
         visible:                !QGroundControl.videoManager.fullScreen
 
-        onDisplayPreFlightChecklist: {
-            if (!preFlightChecklistLoader.active) {
-                preFlightChecklistLoader.active = true
-            }
-            preFlightChecklistLoader.item.open()
-        }
+        onDisplayGeofenceQuickSet: geofenceDialogFactory.open()
 
         property real topEdgeLeftInset:     visible ? y + height : 0
         property real leftEdgeTopInset:     visible ? x + width : 0
@@ -175,15 +171,22 @@ Item {
         property real topEdgeCenterInset: visible ? y + height : 0
     }
 
-    Loader {
-        id: preFlightChecklistLoader
-        sourceComponent: preFlightChecklistPopup
-        active: false
+    // Geofence quick-set dialog factory + error handler
+    QGCPopupDialogFactory {
+        id:              geofenceDialogFactory
+        dialogComponent: geofenceDialogComponent
     }
 
     Component {
-        id: preFlightChecklistPopup
-        FlyViewPreFlightChecklistPopup {
+        id: geofenceDialogComponent
+        GeofenceQuickSet { }
+    }
+
+    Connections {
+        target: GeofenceQuickSetController
+        ignoreUnknownSignals: true
+        function onErrorOccurred(message) {
+            mainWindow.showCriticalVehicleMessage(message)
         }
     }
 }

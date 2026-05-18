@@ -44,6 +44,7 @@
 #include "VehicleComponent.h"
 #include "VideoManager.h"
 #include "TelemetryCSVManager.h"
+#include "GeofenceQuickSetController.h"
 
 #ifndef QGC_NO_SERIAL_LINK
 #include "SerialLink.h"
@@ -315,6 +316,7 @@ void QGCApplication::_initForNormalAppBoot()
     MAVLinkProtocol::instance()->init();
     MultiVehicleManager::instance()->init();
     TelemetryCSVManager::instance()->init();
+    GeofenceQuickSetController::instance(); // Connects to MultiVehicleManager
     _qmlAppEngine = QGCCorePlugin::instance()->createQmlApplicationEngine(this);
     QObject::connect(_qmlAppEngine, &QQmlApplicationEngine::objectCreationFailed, this, QCoreApplication::quit, Qt::QueuedConnection);
 
