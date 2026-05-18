@@ -72,6 +72,7 @@ public:
     Q_PROPERTY(QString parameterSavePath        READ parameterSavePath          NOTIFY savePathsChanged)
     Q_PROPERTY(QString telemetrySavePath        READ telemetrySavePath          NOTIFY savePathsChanged)
     Q_PROPERTY(QString logSavePath              READ logSavePath                NOTIFY savePathsChanged)
+    Q_PROPERTY(QString telemetryCSVSavePath     READ telemetryCSVSavePath       NOTIFY savePathsChanged)
     Q_PROPERTY(QString videoSavePath            READ videoSavePath              NOTIFY savePathsChanged)
     Q_PROPERTY(QString photoSavePath            READ photoSavePath              NOTIFY savePathsChanged)
     Q_PROPERTY(QString crashSavePath            READ crashSavePath              NOTIFY savePathsChanged)
@@ -93,6 +94,7 @@ public:
     QString parameterSavePath     ();
     QString telemetrySavePath     ();
     QString logSavePath           ();
+    QString telemetryCSVSavePath  ();
     QString videoSavePath         ();
     QString photoSavePath         ();
     QString crashSavePath         ();

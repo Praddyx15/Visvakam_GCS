@@ -291,6 +291,11 @@ QString AppSettings::logSavePath(void)
     return _childSavePath(logDirectory);
 }
 
+QString AppSettings::telemetryCSVSavePath(void)
+{
+    return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + QStringLiteral("/Visvakarn GCS/Logs");
+}
+
 QString AppSettings::videoSavePath(void)
 {
     return _childSavePath(videoDirectory);

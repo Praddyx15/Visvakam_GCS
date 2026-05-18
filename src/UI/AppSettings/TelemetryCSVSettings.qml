@@ -10,7 +10,7 @@ ColumnLayout {
     spacing: ScreenTools.defaultFontPixelHeight / 2
 
     property var    _fact:      QGroundControl.settingsManager.appSettings.recordTelemetryCSV
-    property string _logsPath:  QGroundControl.settingsManager.appSettings.logSavePath
+    property string _logsPath:  QGroundControl.settingsManager.appSettings.telemetryCSVSavePath
 
     FactCheckBoxSlider {
         Layout.fillWidth:   true

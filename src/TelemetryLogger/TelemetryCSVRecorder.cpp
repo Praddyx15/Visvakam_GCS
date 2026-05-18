@@ -5,6 +5,8 @@
 #include "BatteryFactGroupListModel.h"
 #include "QmlObjectListModel.h"
 #include "QGCLoggingCategory.h"
+#include "SettingsManager.h"
+#include "AppSettings.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QDir>
@@ -28,7 +30,10 @@ TelemetryCSVRecorder::TelemetryCSVRecorder(Vehicle *vehicle, QObject *parent)
 
     connect(vehicle, &Vehicle::armedChanged, this, &TelemetryCSVRecorder::_onArmedChanged);
 
-    _openFile();
+    if (vehicle->armed()) {
+        _openFile();
+        _sampleTimer.start();
+    }
 }
 
 TelemetryCSVRecorder::~TelemetryCSVRecorder()
@@ -45,8 +50,7 @@ void TelemetryCSVRecorder::stopNow()
 
 void TelemetryCSVRecorder::_openFile()
 {
-    const QString logsDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
-                            + QStringLiteral("/Visvakarn GCS/Logs");
+    const QString logsDir = SettingsManager::instance()->appSettings()->telemetryCSVSavePath();
     if (!QDir().mkpath(logsDir)) {
         qCWarning(TelemetryCSVRecorderLog) << "Failed to create logs directory:" << logsDir;
         return;
@@ -86,6 +90,9 @@ void TelemetryCSVRecorder::_onArmedChanged(bool armed)
 {
     if (armed) {
         _postArmTimer.stop();
+        if (!_fileOpen) {
+            _openFile();
+        }
         if (!_sampleTimer.isActive())
             _sampleTimer.start();
     } else {
