@@ -14,6 +14,7 @@ import QGroundControl.FlyView
 import QGroundControl.FlightMap
 import QGroundControl.Viewer3D
 import QGroundControl.Geofence
+import QGroundControl.Checklist
 
 // This is the ui overlay layer for the widgets/tools for Fly View
 Item {
@@ -147,6 +148,13 @@ Item {
         maxHeight:              parent.height - y - parentToolInsets.bottomEdgeLeftInset - _toolsMargin
         visible:                !QGroundControl.videoManager.fullScreen
 
+        onDisplayPreFlightChecklist: {
+            if (!preFlightChecklistLoader.active) {
+                preFlightChecklistLoader.active = true
+            }
+            preFlightChecklistLoader.item.open()
+        }
+
         onDisplayGeofenceQuickSet: geofenceDialogFactory.open()
 
         property real topEdgeLeftInset:     visible ? y + height : 0
@@ -169,6 +177,51 @@ Item {
         visible:            !ScreenTools.isTinyScreen && QGroundControl.corePlugin.options.flyView.showMapScale && QGCViewer3DManager.displayMode !== QGCViewer3DManager.View3D && mapControl.pipState.state === mapControl.pipState.fullState
 
         property real topEdgeCenterInset: visible ? y + height : 0
+    }
+
+    Rectangle {
+        id:                 preFlightBadge
+        anchors.top:        parent.top
+        anchors.topMargin:  ScreenTools.defaultFontPixelHeight * 0.25
+        anchors.horizontalCenter: parent.horizontalCenter
+        height:             ScreenTools.defaultFontPixelHeight * 1.5
+        width:              badgeRow.implicitWidth + ScreenTools.defaultFontPixelWidth * 2
+        radius:             height / 2
+        color:              ChecklistModel.readyToArm ? "#2ecc71" : "#e74c3c"
+        visible:            !QGroundControl.videoManager.fullScreen
+
+        Row {
+            id:                 badgeRow
+            anchors.centerIn:   parent
+            spacing:            ScreenTools.defaultFontPixelWidth * 0.5
+
+            QGCColoredImage {
+                width:      ScreenTools.defaultFontPixelHeight
+                height:     width
+                color:      "white"
+                source:     ChecklistModel.readyToArm ? "/qmlimages/check.svg" : "/qmlimages/cancel.svg"
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            QGCLabel {
+                text:                   ChecklistModel.readyToArm ? qsTr("Ready to Arm") : qsTr("Pre-Flight Incomplete")
+                color:                  "white"
+                font.pointSize:         ScreenTools.smallFontPointSize
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+    }
+
+    Loader {
+        id: preFlightChecklistLoader
+        sourceComponent: preFlightChecklistPopup
+        active: false
+    }
+
+    Component {
+        id: preFlightChecklistPopup
+        FlyViewPreFlightChecklistPopup {
+        }
     }
 
     // Geofence quick-set dialog factory + error handler

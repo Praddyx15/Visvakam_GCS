@@ -64,6 +64,12 @@
             ]
         },
         {
+            "heading": "Pre-Flight Checklist",
+            "sectionName": "Pre-Flight Checklist",
+            "keywords": ["checklist", "preflight", "pre-flight", "custom", "json", "blocking"],
+            "component": "ChecklistSettings"
+        },
+        {
             "heading": "Telemetry CSV Recording",
             "sectionName": "Telemetry CSV",
             "keywords": ["telemetry", "csv", "log", "record", "export", "visvakarn"],

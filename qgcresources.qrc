@@ -1,4 +1,7 @@
 <RCC>
+    <qresource prefix="/resources/checklists">
+        <file alias="default.json">resources/checklists/default.json</file>
+    </qresource>
     <qresource prefix="/fonts">
         <file alias="opensans">resources/fonts/OpenSans-Regular.ttf</file>
         <file alias="opensans-demibold">resources/fonts/OpenSans-Semibold.ttf</file>

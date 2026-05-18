@@ -38,6 +38,7 @@ add_subdirectory(AnalyzeView)
 add_subdirectory(API)
 add_subdirectory(AutoPilotPlugins)
 add_subdirectory(Camera)
+add_subdirectory(Checklist)
 add_subdirectory(Geofence)
 add_subdirectory(Comms)
 add_subdirectory(FactSystem)
@@ -132,6 +133,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         # QGC Modules
         AnalyzeViewModule
         AppSettingsModule
+        ChecklistModule
         GeofenceModule
         AutoPilotPluginsCommonModule
         FactControlsModule

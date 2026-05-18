@@ -45,6 +45,19 @@ ToolIndicatorPage {
             SubMenuButton {
                 implicitHeight: root._toolButtonHeight
                 Layout.fillWidth: true
+                text: qsTr("Pre-Flight")
+                imageResource: "/qmlimages/check.svg"
+                onClicked: {
+                    if (mainWindow.allowViewSwitch()) {
+                        mainWindow.closeIndicatorDrawer()
+                        mainWindow.showPreFlightView()
+                    }
+                }
+            }
+
+            SubMenuButton {
+                implicitHeight: root._toolButtonHeight
+                Layout.fillWidth: true
                 text: qsTr("Analyze")
                 imageResource: "/qmlimages/Analyze.svg"
                 visible: QGroundControl.corePlugin.showAdvancedUI

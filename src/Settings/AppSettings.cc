@@ -170,6 +170,7 @@ DECLARE_SETTINGSFACT(AppSettings, remoteLoggingTlsVerifyPeer)
 DECLARE_SETTINGSFACT(AppSettings, remoteLoggingCompressionEnabled)
 DECLARE_SETTINGSFACT(AppSettings, remoteLoggingCompressionLevel)
 DECLARE_SETTINGSFACT(AppSettings, recordTelemetryCSV)
+DECLARE_SETTINGSFACT(AppSettings, checklistCustomPath)
 
 DECLARE_SETTINGSFACT_NO_FUNC(AppSettings, indoorPalette)
 {

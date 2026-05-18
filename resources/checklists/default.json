@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "name": "Visvakarn GCS Default Pre-Flight Checklist",
+  "sections": [
+    {
+      "id": "airframe",
+      "title": "Airframe",
+      "items": [
+        {
+          "id": "control_surfaces",
+          "label": "Control surfaces free and correct",
+          "description": "Move ailerons, elevator, and rudder by hand. Confirm full travel, no binding, and correct direction matches transmitter inputs.",
+          "severity": "blocking"
+        },
+        {
+          "id": "prop_secure",
+          "label": "Propeller secure and undamaged",
+          "description": "Check prop nut torque. Inspect blades for nicks, cracks, or delamination. Confirm spinner is tight.",
+          "severity": "blocking"
+        },
+        {
+          "id": "cg_check",
+          "label": "Center of gravity within limits",
+          "description": "Balance aircraft at the marked CG station. Payload bay loaded and secured.",
+          "severity": "blocking"
+        },
+        {
+          "id": "hatches_latched",
+          "label": "All hatches and access panels latched",
+          "description": "Visually confirm nose hatch, payload bay, and wing root covers are fully latched.",
+          "severity": "warning"
+        }
+      ]
+    },
+    {
+      "id": "avionics",
+      "title": "Avionics",
+      "items": [
+        {
+          "id": "battery_voltage",
+          "label": "Battery voltage above 16.4 V (4S nominal)",
+          "description": "Check main pack on a calibrated voltmeter before connecting to airframe.",
+          "severity": "blocking"
+        },
+        {
+          "id": "gps_lock",
+          "label": "GPS 3D fix with ≥ 12 satellites and HDOP < 1.2",
+          "description": "Verify on the HUD before arming. Wait for fix to stabilize for at least 30 seconds.",
+          "severity": "blocking"
+        },
+        {
+          "id": "rc_link",
+          "label": "RC link RSSI healthy",
+          "description": "Walk-test transmitter to ~20 m and confirm no link drops. Failsafe should be configured to RTL.",
+          "severity": "blocking"
+        },
+        {
+          "id": "telemetry_link",
+          "label": "Telemetry link established with GCS",
+          "description": "Confirm bidirectional MAVLink traffic and that vehicle parameters have loaded.",
+          "severity": "warning"
+        }
+      ]
+    },
+    {
+      "id": "mission",
+      "title": "Mission",
+      "items": [
+        {
+          "id": "mission_uploaded",
+          "label": "Mission plan uploaded and verified on map",
+          "description": "Visually inspect waypoint sequence. Confirm takeoff and landing waypoints are correctly placed.",
+          "severity": "blocking"
+        },
+        {
+          "id": "geofence_active",
+          "label": "Geofence configured for operating area",
+          "description": "Either polygon fence or circular quick-set fence active. Max altitude set per local airspace authorization.",
+          "severity": "blocking"
+        },
+        {
+          "id": "weather_check",
+          "label": "Winds within operational limits",
+          "description": "Surface winds ≤ 8 m/s, gusts ≤ 12 m/s. No precipitation. Visibility ≥ 5 km.",
+          "severity": "warning"
+        },
+        {
+          "id": "airspace_clear",
+          "label": "Airspace deconflicted, observers in position",
+          "description": "Confirm NOTAM filed if required. Visual observers briefed and at their stations with comms.",
+          "severity": "warning"
+        }
+      ]
+    }
+  ]
+}

@@ -81,6 +81,7 @@ qt_add_qml_module(AppSettingsModule
         BluetoothSettings.qml
         DebugWindow.qml
         TelemetryCSVSettings.qml
+        ChecklistSettings.qml
         GcsPositionStatus.qml
         HelpSettings.qml
         LinkConfigurationManager.qml

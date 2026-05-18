@@ -11,6 +11,7 @@ import QGroundControl.FlyView
 import QGroundControl.FlightMap
 import QGroundControl.PlanView
 import QGroundControl.Toolbar
+import QGroundControl.Checklist
 
 /// @brief Native QML top level window
 /// All properties defined here are visible to all QML pages.
@@ -128,12 +129,21 @@ ApplicationWindow {
     function showPlanView() {
         flyView.visible = false
         planView.visible = true
+        preFlightView.visible = false
         toolDrawer.visible = false
     }
 
     function showFlyView() {
         flyView.visible = true
         planView.visible = false
+        preFlightView.visible = false
+        toolDrawer.visible = false
+    }
+
+    function showPreFlightView() {
+        flyView.visible = false
+        planView.visible = false
+        preFlightView.visible = true
         toolDrawer.visible = false
     }
 
@@ -291,6 +301,12 @@ ApplicationWindow {
 
     PlanView {
         id:             planView
+        anchors.fill:   parent
+        visible:        false
+    }
+
+    PreFlightView {
+        id:             preFlightView
         anchors.fill:   parent
         visible:        false
     }

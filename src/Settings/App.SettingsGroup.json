@@ -461,6 +461,14 @@
             "keywords": "remote,logging,compression"
         },
         {
+            "name": "checklistCustomPath",
+            "shortDesc": "Path to a custom pre-flight checklist JSON file. Leave empty to use the built-in default.",
+            "type": "string",
+            "default": "",
+            "label": "Custom Checklist Path",
+            "keywords": "checklist,preflight,custom,json"
+        },
+        {
             "name": "recordTelemetryCSV",
             "shortDesc": "Record vehicle telemetry to a CSV file at 5 Hz while armed.",
             "longDesc": "When enabled, a CSV file is written to ~/Documents/Visvakarn GCS/Logs/ for each vehicle connection, from arming until 30 seconds after disarming.",
