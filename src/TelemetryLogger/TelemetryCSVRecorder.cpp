@@ -56,7 +56,7 @@ void TelemetryCSVRecorder::_openFile()
         return;
     }
 
-    const QString timestamp = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMddTHHmmssZ"));
+    const QString timestamp = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyy-MM-dd'T'HHmmss'Z'"));
     const QString fileName  = QStringLiteral("%1_%2.csv").arg(_vehicle->id()).arg(timestamp);
     _file.setFileName(QDir(logsDir).filePath(fileName));
 
@@ -158,22 +158,22 @@ void TelemetryCSVRecorder::_writeSampleRow()
         numSatellites = QString::number(gps->count()->rawValue().toInt());
     }
 
-    auto nanToStr = [](double v) -> QString {
-        return qIsNaN(v) ? QStringLiteral("") : QString::number(v, 'f', 6);
+    auto floatToStr = [](double v, int precision = 3) -> QString {
+        return qIsNaN(v) ? QStringLiteral("") : QString::number(v, 'f', precision);
     };
 
     _stream << ts << ','
-            << nanToStr(lat) << ','
-            << nanToStr(lon) << ','
-            << QString::number(altAmsl, 'f', 3) << ','
-            << QString::number(altRel,  'f', 3) << ','
-            << QString::number(roll,    'f', 3) << ','
-            << QString::number(pitch,   'f', 3) << ','
-            << QString::number(yaw,     'f', 3) << ','
-            << QString::number(groundSpeed, 'f', 3) << ','
-            << QString::number(airSpeed,    'f', 3) << ','
-            << nanToStr(battVoltage) << ','
-            << nanToStr(battRemaining) << ','
+            << floatToStr(lat, 6) << ','
+            << floatToStr(lon, 6) << ','
+            << floatToStr(altAmsl, 3) << ','
+            << floatToStr(altRel,  3) << ','
+            << floatToStr(roll,    3) << ','
+            << floatToStr(pitch,   3) << ','
+            << floatToStr(yaw,     3) << ','
+            << floatToStr(groundSpeed, 3) << ','
+            << floatToStr(airSpeed,    3) << ','
+            << floatToStr(battVoltage, 3) << ','
+            << floatToStr(battRemaining, 3) << ','
             << flightMode << ','
             << armingState << ','
             << gpsFixType << ','

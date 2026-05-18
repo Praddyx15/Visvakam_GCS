@@ -20,8 +20,22 @@ ColumnLayout {
     }
 
     QGCButton {
-        text:       qsTr("Show in Finder")
-        visible:    Qt.platform.os === "osx"
-        onClicked:  Qt.openUrlExternally("file://" + _logsPath)
+        text: {
+            if (Qt.platform.os === "osx") {
+                return qsTr("Show in Finder");
+            } else if (Qt.platform.os === "windows") {
+                return qsTr("Show in Explorer");
+            } else {
+                return qsTr("Show in Folder");
+            }
+        }
+        visible:    Qt.platform.os === "osx" || Qt.platform.os === "windows" || Qt.platform.os === "linux"
+        onClicked: {
+            var prefix = "file://";
+            if (Qt.platform.os === "windows") {
+                prefix = "file:///";
+            }
+            Qt.openUrlExternally(prefix + _logsPath);
+        }
     }
 }
