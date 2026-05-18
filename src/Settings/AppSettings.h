@@ -62,6 +62,7 @@ public:
     DEFINE_SETTINGFACT(remoteLoggingTlsVerifyPeer)
     DEFINE_SETTINGFACT(remoteLoggingCompressionEnabled)
     DEFINE_SETTINGFACT(remoteLoggingCompressionLevel)
+    DEFINE_SETTINGFACT(recordTelemetryCSV)
 
     // QSettings key for clearSettingsNextBoot. Accessed directly by QGCApplication
     // at startup before SettingsManager is initialized.

@@ -64,6 +64,12 @@
             ]
         },
         {
+            "heading": "Telemetry CSV Recording",
+            "sectionName": "Telemetry CSV",
+            "keywords": ["telemetry", "csv", "log", "record", "export", "visvakarn"],
+            "component": "TelemetryCSVSettings"
+        },
+        {
             "heading": "Units",
             "keywords": ["units", "metric", "imperial", "distance", "speed", "area", "temperature", "feet", "meters"],
             "showWhen": "QGroundControl.settingsManager.unitsSettings.userVisible",

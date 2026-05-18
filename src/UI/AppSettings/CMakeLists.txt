@@ -80,6 +80,7 @@ qt_add_qml_module(AppSettingsModule
         # Hand-coded pages and components
         BluetoothSettings.qml
         DebugWindow.qml
+        TelemetryCSVSettings.qml
         GcsPositionStatus.qml
         HelpSettings.qml
         LinkConfigurationManager.qml
