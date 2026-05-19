@@ -1,134 +1,77 @@
+# Visvakarn GCS (Ground Control Station)
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Dronecode/UX-Design/35d8148a8a0559cd4bcf50bfa2c94614983cce91/QGC/Branding/Deliverables/QGC_RGB_Logo_Horizontal_Positive_PREFERRED/QGC_RGB_Logo_Horizontal_Positive_PREFERRED.svg" alt="QGroundControl Logo" width="500">
-</p>
-
-<p align="center">
-  <a href="https://github.com/mavlink/QGroundControl/releases">
-    <img src="https://img.shields.io/github/v/release/mavlink/QGroundControl" alt="Latest Release">
-  </a>
-</p>
-
-*QGroundControl* (QGC) is a highly intuitive and powerful Ground Control Station (GCS) designed for UAVs. Whether you're a first-time pilot or an experienced professional, QGC provides a seamless user experience for flight control and mission planning, making it the go-to solution for any *MAVLink-enabled drone*.
+Visvakarn GCS is a customized, rebranded fork of [QGroundControl](https://github.com/mavlink/qgroundcontrol) tailored for fixed-wing UAV field operations. It introduces new capabilities for telemetry logging, pre-flight safety validation, and rapid geofencing.
 
 ---
 
-### 🌟 *Why Choose QGroundControl?*
+## Key Feature Additions
 
-- *🚀 Ease of Use*: A beginner-friendly interface designed for smooth operation without sacrificing advanced features for pros.
-- *✈️ Comprehensive Flight Control*: Full flight control and mission management for *PX4* and *ArduPilot* powered UAVs.
-- *🛠️ Mission Planning*: Easily plan complex missions with a simple drag-and-drop interface.
+### 1. Telemetry CSV Recorder (Feature A)
+Saves flight telemetry to standard CSV files for post-flight analysis (e.g., in Excel or Pandas) without requiring binary log extraction.
+- **Auto-Logging**: Starts logging automatically when the vehicle is armed and stops 30 seconds after the vehicle is disarmed (capturing critical post-landing telemetry).
+- **Format**: Filename format follows `<vehicle_id>_<UTC_timestamp>.csv` (e.g., `1_2026-05-14T093015Z.csv`) saved in `~/Documents/Visvakarn GCS/Logs/`.
+- **Downsampling**: Telemetry is written at a steady 5 Hz rate, capturing the latest available state values.
+- **Robustness**: Handles absent telemetry fields (e.g., NaN battery readings) gracefully, outputting blank fields to maintain clean CSV structure.
+- **UX**: A "Show in Finder" (on macOS) or "Show in Explorer" (on Windows) button is provided directly next to the toggle in the Application Settings.
 
-🔍 For a deeper dive into using QGC, check out the [User Manual](https://docs.qgroundcontrol.com/en/) – although thanks to QGC's intuitive UI, you may not even need it!
+### 2. Customizable Pre-Flight Checklist (Feature B)
+Enforces a structured checklist walk-through for field operators before flight.
+- **Section Grouping**: Grouped into three distinct stages: *Airframe*, *Avionics*, and *Mission*.
+- **Configurability**: Loads a default checklist from `resources/checklists/default.json` at startup. Allows admins to load a custom JSON checklist via a file picker in the application settings.
+- **Arming Status Badge**: Features a visual "Pre-Flight Incomplete" (Red) / "Ready to Arm" (Green) status badge on the main Fly View HUD.
+- **Auto-Reset**: Checklist status automatically resets to unchecked upon vehicle disarming, ensuring a fresh safety checklist is completed for every single flight.
 
----
-
-### 🚁 *Key Features*
-
-- 🕹️ *Full Flight Control*: Supports all *MAVLink drones*.
-- ⚙️ *Vehicle Setup*: Tailored configuration for *PX4* and *ArduPilot* platforms.
-- 🔧 *Fully Open Source*: Customize and extend the software to suit your needs.
-
-🎯 Check out the latest updates in our [New Features and Release Notes](https://github.com/mavlink/qgroundcontrol/blob/master/CHANGELOG.md).
-
----
-
-### 💻 *Get Involved!*
-
-QGroundControl is *open-source*, meaning you have the power to shape it! Whether you're fixing bugs, adding features, or customizing for your specific needs, QGC welcomes contributions from the community.
-
-🛠️ Start building today with our [Developer Guide](https://dev.qgroundcontrol.com/en/) and [build instructions](https://dev.qgroundcontrol.com/en/getting_started/).
+### 3. Geofence Quick-Set (Feature C)
+Allows field operators to quickly configure a circular inclusion geofence centered on the vehicle's current coordinates.
+- **Input Parameters**: A clean HUD-integrated dialog lets operators configure the geofence Radius (50m to 5000m) and Maximum Altitude AGL (30m to 500m).
+- **HUD Map Ring**: Displays a translucent, high-visibility boundary ring on the map once active.
+- **MAVLink Integration**: Uploads the geofence directly to the autopilot using the standard MAVLink protocol. Any upload failures are captured and displayed to the user via the GCS toast notification system.
 
 ---
 
-### 🔗 *Useful Links*
+## Architecture & Implementation Decisions
 
-- 🌐 [Official Website](http://qgroundcontrol.com)
-- 📘 [User Manual](https://docs.qgroundcontrol.com/en/)
-- 🛠️ [Developer Guide](https://dev.qgroundcontrol.com/en/)
-- 💬 [Discussion & Support](https://docs.qgroundcontrol.com/en/Support/Support.html)
-- 🤝 [Contributing](.github/CONTRIBUTING.md) ([Dev Guide](https://dev.qgroundcontrol.com/en/contribute/))
-- 📜 [License Information](https://github.com/mavlink/qgroundcontrol/blob/master/.github/COPYING.md)
+Each feature is integrated directly into QGC's Qt Quick/C++ architecture:
+- **Separation of Concerns**: Custom modules are built as static modules (`ChecklistModule` and `GeofenceModule`) under `src/Checklist/` and `src/Geofence/` and linked via CMake.
+- **QML Singleton Registry**: Exposes C++ controllers (`ChecklistModel` and `GeofenceQuickSetController`) as singletons to the QML engine, keeping UI layouts clean and responsive.
+- **Cross-Platform Pathing**: Standardized file URL path conversions (stripping prefixes like `file:///` on Windows or keeping absolute paths intact on UNIX-based systems) to avoid platform-specific pathing bugs.
 
----
-
-With QGroundControl, you're in full command of your UAV, ready to take your missions to the next level.
-
----
-
-### Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/mavlink/qgroundcontrol.svg?variant=adaptive)](https://starchart.cc/mavlink/qgroundcontrol)
+### Technical Trade-offs Made
+1. **Downsampled Telemetry Logging vs. Full Stream Capture**:
+   Instead of writing every single incoming MAVLink message to disk, the CSV Recorder downsamples telemetry to a steady 5 Hz. This reduces disk I/O load, avoids freezing the main thread, and results in uniform, clean time-series logs.
+2. **GCS-Side Arm Gating vs. Autopilot Gating**:
+   The Pre-Flight checklist acts as a visual safety gate on the GCS interface ("Ready to Arm" badge). It does not block the low-level MAVLink arm command. This prevents locking the pilot out of emergency control states if the GCS loses state mid-operation.
+3. **Local Geofence Overlay Rendering**:
+   The translucent geofence circle on the HUD map is rendered using local parameters immediately after a successful upload trigger. This eliminates the need to constantly poll the autopilot for fence boundaries, saving valuable telemetry bandwidth.
 
 ---
 
-## Build Environment
+## Build and Packaging Instructions
 
-Baseline build confirmed on macOS 15.7.1 (Apple Silicon / arm64).
+### Environment Prerequisites
+- **macOS**: macOS 14+ (ARM64 Apple Silicon)
+- **Xcode**: Xcode 15+ toolchain (Clang)
+- **Qt**: Qt 6.10.3 (desktop macos, `aqtinstall` is recommended)
+- **Dependencies**: CMake 3.28+, Ninja, `create-dmg` (installed via Homebrew)
 
-| Component | Version |
-|-----------|---------|
-| macOS | 15.7.1 (BuildVersion 24G231) |
-| Xcode toolchain | Apple clang 17.0.0 (Command Line Tools, clang-1700.0.13.5) |
-| Qt | 6.10.3 (installed via aqtinstall into ~/Qt/6.10.3/macos) |
-| CMake | 4.0.0 |
-| Ninja | 1.13.2 |
-| ccache | installed via Homebrew |
-
-### Qt modules installed
-
-Base Qt plus: `qt5compat qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver`
-
-### Build commands
-
+### Local Build Commands
+To compile the application locally:
 ```bash
-# Install Qt 6.10.3 (one-time)
+# 1. Install Qt dependencies
 pip3 install aqtinstall
-aqt install-qt mac desktop 6.10.3 clang_64 \
-  --outputdir ~/Qt \
-  --modules qt5compat qtgraphs qtlocation qtpositioning qtspeech qtmultimedia \
-            qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d \
-            qtsensors qtscxml qtwebsockets qthttpserver
+aqt install-qt mac desktop 6.10.3 clang_64 --outputdir ~/Qt --modules qt5compat qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
 
-# Install Homebrew dependencies
-brew install cmake ninja ccache just pkgconf create-dmg
+# 2. Install package build tools
+brew install cmake ninja create-dmg
 
-# Generate Visvakarn app icon (.icns)
-bash scripts/gen_icns.sh
-
-# Configure (pass brand values to override CMake cache)
-~/Qt/6.10.3/macos/bin/qt-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
-  -DGStreamer_USE_FRAMEWORK=OFF \
-  "-DQGC_APP_NAME=Visvakarn GCS" \
-  "-DQGC_ORG_NAME=Visvakarn" \
-  "-DQGC_ORG_DOMAIN=visvakarn.com" \
-  "-DQGC_PACKAGE_NAME=com.visvakarn.gcs" \
-  "-DQGC_APP_DESCRIPTION=Visvakarn Ground Control Station" \
-  "-DQGC_MACOS_BUNDLE_ID=com.visvakarn.gcs" \
-  "-DQGC_MACOS_ICON_PATH=$(pwd)/resources/icons/visvakarn.icns"
-
-# Build (~40 min first time on Apple M-series)
+# 3. Compile the application
+~/Qt/6.10.3/macos/bin/qt-cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DGStreamer_USE_FRAMEWORK=OFF
 cmake --build build --parallel
 ```
 
-The resulting app bundle is at `build/Release/QGroundControl.app`.
-
-## Build Patches
-
-### Step 2 — Visvakarn GCS rebrand
-
-No upstream source files were patched. All changes are additive:
-
-- `cmake/CustomOptions.cmake` — app name, org, domain, bundle ID, icon path updated to Visvakarn values
-- `CMakeLists.txt` — `project()` call hardcoded to `QGroundControl` (CMake target names cannot contain spaces); display name comes from `QGC_APP_NAME`
-- `cmake/platform/Apple.cmake` — `MACOSX_BUNDLE_BUNDLE_NAME` changed from `CMAKE_PROJECT_NAME` to `QGC_APP_NAME` so the bundle shows "Visvakarn GCS"
-- `src/QmlControls/QGCPalette.cc` — dark-theme colours updated to Visvakarn brand palette (#2B2B2B background, #73BAF2 accent, #E9E9E9 text)
-- `src/UI/toolbar/*.qml`, `src/UI/MainWindow.qml`, `src/FlightMap/FlightMap.qml`, `src/AutoPilotPlugins/APM/APMFollowComponent.qml` — logo image references replaced with Visvakarn assets
-- `src/UI/AppSettings/HelpSettings.qml` — QGroundControl doc URLs replaced with visvakarn.com/gcs
-- `src/AutoPilotPlugins/Common/ESP8266Component.qml`, `src/GPS/NTRIP/NTRIPHttpTransport.cc`, `src/Vehicle/MAVLinkLogManager.{h,cc}`, `src/Camera/SimulatedCameraControl.h`, `src/Utilities/Parsing/Json/JsonParsing.cc` — user-visible "QGroundControl" strings replaced
-- `resources/SplashScreen.png` — replaced with Visvakarn logo on #2B2B2B background
-- `resources/icons/visvakarn.icns` — generated from `assets/visvakarn/Visvakarn_app-icon.png`
-- `resources/Visvakarn*.{png,svg}` — brand logo assets added
-- `qgcresources.qrc` — Visvakarn logo assets registered
-- `scripts/gen_icns.sh` — icon generation script added
-- `-DGStreamer_USE_FRAMEWORK=OFF` required on reconfigure (CPM-downloaded GStreamer uses pkg-config, not a system framework)
+### Packaging Script
+The packaging process is automated in `scripts/package_macos.sh`:
+```bash
+bash scripts/package_macos.sh
+```
+This script configures the project, builds the binaries, packages all Qt frameworks and QML plug-ins using `macdeployqt` into a standalone `.app` bundle, ad-hoc signs the binaries, and creates a drag-and-drop installer `.dmg` in the build directory.
